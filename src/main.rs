@@ -3,11 +3,12 @@
 
 //! # Programming projects boilerplate creator
 pub mod args;
+pub mod file_content;
 pub mod file_mgmt;
 
-use args::Args;
+use args::{Args, FileType};
 use clap::{Parser, ValueEnum};
-use file_mgmt::create_dir;
+use file_mgmt::{create_dir, create_subdir};
 use std::env;
 
 fn main() {
@@ -18,7 +19,10 @@ fn main() {
     let created_dir = create_dir(&current_dir, &args.name);
 
     match created_dir {
-        Ok(_) => println!("{} directory created successfully", &args.name),
+        Ok(dir) => {
+            println!("{} directory created successfully", &args.name);
+            create_subdir(&dir, &args.kind, &args.ext);
+        }
         Err(err) => eprintln!("{}", err),
     };
 }

@@ -27,7 +27,7 @@ pub struct Args {
 }
 
 #[derive(Clone, Debug, ValueEnum)]
-enum FileType {
+pub enum FileType {
     /// TypeScript Files
     TS,
     /// JavaScript Files
@@ -35,7 +35,7 @@ enum FileType {
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
-enum Kind {
+pub enum Kind {
     /// Create a front-end project
     Front,
     /// Create a back-end project
