@@ -14,5 +14,11 @@ fn main() {
     let current_dir = env::current_dir().unwrap();
     let args = Args::parse();
 
-    create_dir(&args.name);
+    let current_dir = env::current_dir().unwrap();
+    let created_dir = create_dir(&current_dir, &args.name);
+
+    match created_dir {
+        Ok(_) => println!("{} directory created successfully", &args.name),
+        Err(err) => eprintln!("{}", err),
+    };
 }

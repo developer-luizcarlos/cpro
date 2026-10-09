@@ -1,27 +1,27 @@
 use std::{
     env,
     fs::DirBuilder,
+    io::{Error, ErrorKind},
     path::{Path, PathBuf},
     process,
 };
 
-fn create_path(dir_name: &String) -> PathBuf {
-    let current_dir = env::current_dir().unwrap();
-    let path = Path::new(&current_dir).join(dir_name.clone());
-
-    path
-}
-
-pub fn create_dir(dir_name: &String) {
-    let path = create_path(dir_name);
+pub fn create_dir(parent_dir: &PathBuf, dir_name: &String) -> Result<PathBuf, Error> {
+    let path = Path::new(&parent_dir).join(dir_name);
 
     if path.exists() {
-        eprintln!("{:?} directory already exists", dir_name);
-        process::exit(1);
+        let msg = format!("{} directory already exists", dir_name);
+        let err = Error::new(ErrorKind::AlreadyExists, msg);
+
+        return Err(err);
     }
 
     match DirBuilder::new().create(&path) {
-        Ok(_) => println!("{:?} directory created", dir_name),
-        Err(err) => eprintln!("{}", err),
+        Ok(_) => {
+            return Ok(path);
+        }
+        Err(err) => {
+            return Err(err);
+        }
     }
 }
