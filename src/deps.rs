@@ -31,7 +31,7 @@ pub fn install_front_deps() -> Result<(), Error> {
     let step_1 = Command::new("sh")
         .current_dir(&path)
         .arg("-c")
-        .arg("npm init -y")
+        .arg("npm init --init-type module -y")
         .output()?;
 
     let step_2 = Command::new("sh")
