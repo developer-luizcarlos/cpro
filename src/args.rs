@@ -26,7 +26,7 @@ pub struct Args {
     pub ext: FileType,
 }
 
-#[derive(Clone, Debug, ValueEnum)]
+#[derive(Clone, Debug, ValueEnum, PartialEq, Eq)]
 pub enum FileType {
     /// TypeScript Files
     TS,

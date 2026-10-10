@@ -1,5 +1,7 @@
 use crate::args::{FileType, Kind};
-use crate::file_content::{get_css_content, get_html_content, get_js_content};
+use crate::file_content::{
+    get_css_content, get_html_content, get_js_content, get_tsconfig_content,
+};
 use std::{
     env,
     fs::{self, DirBuilder},
@@ -50,6 +52,13 @@ fn create_front_project(parent_dir: &PathBuf, ext: &FileType) {
     let html_content = get_html_content();
     let css_content = get_css_content();
     let script_content = get_js_content();
+
+    if *ext == FileType::TS {
+        let tsconfig_path = parent_dir.join("tsconfig.json");
+        let tsconfig_content = get_tsconfig_content();
+
+        fs::write(tsconfig_path, tsconfig_content);
+    }
 
     fs::write(html_file_path, html_content).unwrap();
     fs::write(css_file_path, css_content).unwrap();
