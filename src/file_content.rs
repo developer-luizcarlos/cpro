@@ -5,8 +5,8 @@ pub fn get_html_content<'a>() -> &'a str {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <link rel="stylesheet" href="./assets/styles/main.css" />
-        <script type="module" src="./assets/scripts/main.js"></script>
+        <link rel="stylesheet" href="./src/styles/main.css" />
+        <script type="module" src="./dist/bundle.js"></script>
     </head>
     <body></body>
 </html>
