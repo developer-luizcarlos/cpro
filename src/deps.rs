@@ -26,7 +26,7 @@ pub fn install_front_deps() -> Result<(), Error> {
     }
 
     let deps = deps.join(" ");
-    let install_cmd = format!("npm install {}", deps);
+    let install_cmd = format!("npm install --save-dev {}", deps);
 
     let step_1 = Command::new("sh")
         .current_dir(&path)
