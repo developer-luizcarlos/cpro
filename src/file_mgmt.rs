@@ -39,9 +39,9 @@ pub fn create_subdir(parent_dir: &PathBuf, kind: &Kind, ext: &FileType) {
 }
 
 fn create_front_project(parent_dir: &PathBuf, ext: &FileType) {
-    let assets_dir = &create_dir(parent_dir, &String::from("assets")).unwrap();
-    let styles_dir = &create_dir(assets_dir, &String::from("styles")).unwrap();
-    let scripts_dir = &create_dir(assets_dir, &String::from("scripts")).unwrap();
+    let src_dir = &create_dir(parent_dir, &String::from("src")).unwrap();
+    let styles_dir = &create_dir(src_dir, &String::from("styles")).unwrap();
+    let scripts_dir = &create_dir(src_dir, &String::from("scripts")).unwrap();
 
     let html_file_path = parent_dir.join("index.html");
     let css_file_path = styles_dir.join("main.css");
