@@ -38,6 +38,4 @@ pub enum FileType {
 pub enum Kind {
     /// Create a front-end project
     Front,
-    /// Create a back-end project
-    Back,
 }

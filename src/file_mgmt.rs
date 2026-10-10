@@ -35,7 +35,6 @@ pub fn create_dir(parent_dir: &PathBuf, dir_name: &String) -> Result<PathBuf, Er
 pub fn create_subdir(parent_dir: &PathBuf, kind: &Kind, ext: &FileType) {
     match kind {
         Kind::Front => create_front_project(parent_dir, ext),
-        Kind::Back => (),
     };
 }
 
