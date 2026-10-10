@@ -1,4 +1,5 @@
 use crate::args::{FileType, Kind};
+use crate::deps::install_front_deps;
 use crate::file_content::{
     get_css_content, get_html_content, get_js_content, get_tsconfig_content,
 };
@@ -63,4 +64,9 @@ fn create_front_project(parent_dir: &PathBuf, ext: &FileType) {
     fs::write(html_file_path, html_content).unwrap();
     fs::write(css_file_path, css_content).unwrap();
     fs::write(script_file_path, script_content).unwrap();
+
+    match install_front_deps() {
+        Ok(_) => println!("Dependencies installed"),
+        Err(err) => eprint!("{}", err.kind()),
+    }
 }

@@ -3,6 +3,7 @@
 
 //! # Programming projects boilerplate creator
 pub mod args;
+pub mod deps;
 pub mod file_content;
 pub mod file_mgmt;
 
