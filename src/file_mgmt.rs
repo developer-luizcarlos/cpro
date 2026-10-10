@@ -2,6 +2,7 @@ use crate::args::{FileType, Kind};
 use crate::deps::install_front_deps;
 use crate::file_content::{
     get_css_content, get_html_content, get_js_content, get_tsconfig_content,
+    get_webpack_content_js, get_webpack_content_ts,
 };
 use std::{
     env,
@@ -49,10 +50,18 @@ fn create_front_project(parent_dir: &PathBuf, ext: &FileType) {
         FileType::JS => scripts_dir.join("main.js"),
         FileType::TS => scripts_dir.join("main.ts"),
     };
+    let webpack_file_path = match ext {
+        FileType::JS => parent_dir.join("webpack.config.js"),
+        FileType::TS => parent_dir.join("webpack.config.ts"),
+    };
 
     let html_content = get_html_content();
     let css_content = get_css_content();
     let script_content = get_js_content();
+    let webpack_content = match ext {
+        FileType::JS => get_webpack_content_js(),
+        FileType::TS => get_webpack_content_ts(),
+    };
 
     if *ext == FileType::TS {
         let tsconfig_path = parent_dir.join("tsconfig.json");
@@ -64,6 +73,7 @@ fn create_front_project(parent_dir: &PathBuf, ext: &FileType) {
     fs::write(html_file_path, html_content).unwrap();
     fs::write(css_file_path, css_content).unwrap();
     fs::write(script_file_path, script_content).unwrap();
+    fs::write(webpack_file_path, webpack_content).unwrap();
 
     match install_front_deps() {
         Ok(_) => println!("Dependencies installed"),
