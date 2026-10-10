@@ -32,13 +32,13 @@ pub fn create_dir(parent_dir: &PathBuf, dir_name: &String) -> Result<PathBuf, Er
     }
 }
 
-pub fn create_subdir(parent_dir: &PathBuf, kind: &Kind, ext: &FileType) {
+pub fn create_project(parent_dir: &PathBuf, kind: &Kind, ext: &FileType) -> Result<(), Error> {
     match kind {
         Kind::Front => create_front_project(parent_dir, ext),
-    };
+    }
 }
 
-fn create_front_project(parent_dir: &PathBuf, ext: &FileType) {
+fn create_front_project(parent_dir: &PathBuf, ext: &FileType) -> Result<(), Error> {
     let src_dir = &create_dir(parent_dir, &String::from("src")).unwrap();
     let styles_dir = &create_dir(src_dir, &String::from("styles")).unwrap();
     let scripts_dir = &create_dir(src_dir, &String::from("scripts")).unwrap();
@@ -77,5 +77,7 @@ fn create_front_project(parent_dir: &PathBuf, ext: &FileType) {
     match install_front_deps() {
         Ok(_) => println!("Dependencies installed"),
         Err(err) => eprint!("{}", err.kind()),
-    }
+    };
+
+    Ok(())
 }

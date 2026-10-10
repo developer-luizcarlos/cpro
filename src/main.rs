@@ -9,7 +9,7 @@ pub mod file_mgmt;
 
 use args::{Args, FileType};
 use clap::{Parser, ValueEnum};
-use file_mgmt::{create_dir, create_subdir};
+use file_mgmt::{create_dir, create_project};
 use std::env;
 
 fn main() {
@@ -17,12 +17,16 @@ fn main() {
     let args = Args::parse();
 
     let current_dir = env::current_dir().unwrap();
-    let created_dir = create_dir(&current_dir, &args.name);
 
-    match created_dir {
+    match create_dir(&current_dir, &args.name) {
         Ok(dir) => {
             println!("{} directory created successfully", &args.name);
-            create_subdir(&dir, &args.kind, &args.ext);
+            println!("Wait while project structure is been created...");
+
+            match create_project(&dir, &args.kind, &args.ext) {
+                Ok(_) => println!("Project created successfully!"),
+                Err(err) => eprintln!("{}", err),
+            }
         }
         Err(err) => eprintln!("{}", err),
     };
